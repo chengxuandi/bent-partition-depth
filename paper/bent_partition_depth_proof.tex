@@ -1,0 +1,253 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\F}{\mathbb F}
+\newcommand{\zetaP}{\zeta_p}
+\newcommand{\card}[1]{\lvert #1\rvert}
+\newcommand{\ip}[2]{\langle #1,#2\rangle}
+
+\title{The Depth of a Bent Partition Is a Power of the Characteristic}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Let $p$ be a prime and let $n>0$ be even.  We prove, without any
+regularity or structural hypothesis, that the depth of every bent
+partition of $\F_p^n$ is a power of $p$.  The proof averages, over all
+balanced labelings of the blocks, the number of zero values of one fixed
+nonzero derivative.
+\end{abstract}
+
+\section{Definitions and exact statement}
+
+Put $V=\F_p^n$, equip $V$ with the standard $\F_p$-valued inner
+product, and set
+\[
+  \zetaP=\exp(2\pi i/p).
+\]
+For a function $f:V\to\F_p$, its Walsh transform is
+\[
+  W_f(b)=\sum_{x\in V}\zetaP^{\,f(x)-\ip{b}{x}}
+  \qquad (b\in V).
+\]
+The function $f$ is \emph{bent} if
+\[
+  \card{W_f(b)}=p^{n/2}
+  \qquad\text{for every }b\in V.
+\]
+
+Let $\Omega=\{A_1,\ldots,A_K\}$ be a partition of $V$ into nonempty
+sets, and suppose that $p\mid K$.  A labeling
+\(\ell:\{1,\ldots,K\}\to\F_p\) is called \emph{balanced} if
+\[
+  \card{\ell^{-1}(c)}=K/p
+  \qquad\text{for every }c\in\F_p.
+\]
+It induces the function $f_\ell:V\to\F_p$ defined by
+\[
+  f_\ell(x)=\ell(i)\qquad\text{when }x\in A_i.
+\]
+The partition $\Omega$ is a \emph{bent partition of depth $K$} if
+$f_\ell$ is bent for every balanced labeling $\ell$.
+
+\begin{theorem}[Exact depth theorem]\label{thm:main}
+Let $p$ be a prime, let $n>0$ be even, and let
+$\Omega=\{A_1,\ldots,A_K\}$ be a bent partition of $\F_p^n$ of depth
+$K$ in the sense defined above.  Then there is an integer $k$ with
+\[
+  1\leq k\leq n
+\]
+such that
+\[
+  K=p^k.
+\]
+No hypothesis is imposed on regularity, weak regularity, the sizes or
+types of the blocks, normality, spread structure, vectorial-dual-bent
+structure, or the manner in which the partition was constructed.
+\end{theorem}
+
+\section{A derivative lemma}
+
+For $a\in V$, define
+\[
+  D_a f(x)=f(x+a)-f(x)
+\]
+and the autocorrelation
+\[
+  C_f(a)=\sum_{x\in V}\zetaP^{\,D_a f(x)}.
+\]
+
+\begin{lemma}\label{lem:derivative}
+If $f:V\to\F_p$ is bent and $a\ne0$, then $D_a f$ is balanced.  More
+precisely, for every $c\in\F_p$,
+\[
+  \#\{x\in V:D_a f(x)=c\}=p^{n-1}.
+\]
+\end{lemma}
+
+\begin{proof}
+Writing $a=x-y$ in the product $W_f(b)\overline{W_f(b)}$ gives the
+finite Fourier identity
+\begin{equation}\label{eq:wiener-khinchin}
+  \card{W_f(b)}^2
+  =\sum_{a\in V} C_f(a)\zetaP^{-\ip{b}{a}}.
+\end{equation}
+Since $f$ is bent, the left-hand side of
+\eqref{eq:wiener-khinchin} is the constant $p^n$.  Fourier inversion on
+the additive group of $V$ therefore gives
+\[
+  C_f(a)=0\qquad(a\ne0).
+\]
+
+Fix $a\ne0$, and for $c\in\F_p$ put
+\[
+  m_c=\#\{x\in V:D_a f(x)=c\}.
+\]
+After identifying $\F_p$ with $\{0,1,\ldots,p-1\}$ in exponents, the
+preceding equality says
+\[
+  \sum_{c=0}^{p-1}m_c\zetaP^c=0.
+\]
+Thus the polynomial $P(X)=\sum_{c=0}^{p-1}m_cX^c\in\mathbb Z[X]$
+vanishes at $\zetaP$.  Because $p$ is prime, the minimal polynomial of
+$\zetaP$ over $\mathbb Q$ is
+\[
+  \Phi_p(X)=1+X+\cdots+X^{p-1}.
+\]
+As $\deg P\le p-1=\deg\Phi_p$, it follows that
+$P(X)=t\Phi_p(X)$ for some rational number $t$.  Hence all the $m_c$
+are equal.  Their sum is $\card V=p^n$, so
+$m_c=p^n/p=p^{n-1}$ for every $c\in\F_p$.
+\end{proof}
+
+\section{A balanced-labeling lemma}
+
+\begin{lemma}\label{lem:balanced-labeling}
+Let $K=pr$, and choose uniformly at random a labeling
+$\ell:\{1,\ldots,K\}\to\F_p$ satisfying
+\[
+  \card{\ell^{-1}(c)}=r
+  \qquad\text{for every }c\in\F_p.
+\]
+For any two distinct block indices $i\ne j$,
+\[
+  \Pr\bigl(\ell(i)=\ell(j)\bigr)=\frac{r-1}{K-1}.
+\]
+This probability is independent of the sizes of the blocks and of the
+choice of the distinct indices $i,j$; it depends only on $K,p,r$.
+\end{lemma}
+
+\begin{proof}
+For every $c\in\F_p$, uniformity of the balanced labelings gives
+\[
+  \Pr\bigl(\ell(i)=c\bigr)=\frac{r}{K}=\frac1p.
+\]
+Conditional on $\ell(i)=c$, exactly $r-1$ of the remaining $K-1$
+block indices have label $c$.  Hence
+\[
+\begin{aligned}
+  \Pr\bigl(\ell(i)=\ell(j)\bigr)
+  &=\sum_{c\in\F_p}
+    \Pr\bigl(\ell(i)=c\bigr)
+    \Pr\bigl(\ell(j)=c\mid\ell(i)=c\bigr)\\
+  &=p\cdot\frac1p\cdot\frac{r-1}{K-1}
+   =\frac{r-1}{K-1}.
+\end{aligned}
+\]
+The calculation uses only the indexed set of $K$ blocks and their label
+multiplicities, not their cardinalities, and it is identical for every
+ordered pair of distinct indices $i,j$.
+\end{proof}
+
+\section{Proof of the depth theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+Write
+\[
+  Q=p^n,\qquad r=K/p.
+\]
+Here $r$ is a positive integer.  Since $n>0$, choose and fix
+$a\in V\setminus\{0\}$.  Let
+\begin{equation}\label{eq:T-def}
+  T_a=
+  \#\bigl\{x\in V:\text{$x$ and $x+a$ belong to the same block of
+  $\Omega$}\bigr\}.
+\end{equation}
+In particular, $T_a$ is a nonnegative integer.
+
+Choose a balanced labeling $\ell$ uniformly at random from the finite
+set of all balanced labelings.  For every such $\ell$, Lemma
+\ref{lem:derivative}, applied to the bent function $f_\ell$, shows that
+\begin{equation}\label{eq:zero-count}
+  \#\{x\in V:D_a f_\ell(x)=0\}=Q/p.
+\end{equation}
+
+We now compute the expectation of the left-hand side of
+\eqref{eq:zero-count} by considering each $x\in V$.  If $x$ and $x+a$
+belong to the same block, then
+$D_a f_\ell(x)=0$ for every labeling $\ell$.  If they belong to two
+distinct blocks, then $D_a f_\ell(x)=0$ exactly when those two blocks
+receive the same label.  By Lemma~\ref{lem:balanced-labeling},
+\[
+  \Pr\bigl(D_a f_\ell(x)=0\bigr)
+  =\frac{r-1}{K-1}
+\]
+in the distinct-block case.  If $I_x$ denotes the indicator of this zero
+derivative event, then
+$\mathbb E[\sum_x I_x]=\sum_x\mathbb E[I_x]$; thus linearity of
+expectation uses only the marginal probabilities and requires no
+independence among the events indexed by $x$.  It now yields
+\begin{equation}\label{eq:average}
+  \frac{Q}{p}
+  =T_a+(Q-T_a)\frac{r-1}{K-1}.
+\end{equation}
+
+Substituting $r=K/p$ into \eqref{eq:average} and multiplying by
+$p(K-1)$ gives
+\[
+  Q(K-1)
+  =pT_a(K-1)+(Q-T_a)(K-p).
+\]
+The right-hand side is
+\[
+  (p-1)KT_a+QK-pQ.
+\]
+After cancellation, we obtain
+\[
+  (p-1)Q=(p-1)KT_a.
+\]
+Since $p\ge2$, this proves the exact identity
+\begin{equation}\label{eq:key-divisibility}
+  KT_a=Q=p^n.
+\end{equation}
+
+Because $T_a$ is an integer, \eqref{eq:key-divisibility} implies
+$K\mid p^n$.  Every positive divisor of the prime power $p^n$ is
+$p^k$ for a unique integer $k$ with $0\le k\le n$.  Finally, the
+definition of a bent partition includes $p\mid K$, so $k\ge1$.
+Therefore $K=p^k$ with $1\le k\le n$, as claimed.
+\end{proof}
+
+\begin{remark}
+The argument in fact uses only $n>0$, not the parity of $n$.  Thus the
+same conclusion holds whenever the stated Walsh-flat bent functions and
+the stated bent-partition property exist in odd dimension as well.
+Moreover, the proof gives the exact identity
+\[
+  \#\bigl\{x\in V:\text{$x$ and $x+a$ lie in the same block}\bigr\}
+  =\frac{p^n}{K}
+\]
+for every nonzero $a\in V$.
+\end{remark}
+
+\end{document}
